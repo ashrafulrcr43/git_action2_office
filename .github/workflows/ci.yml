@@ -10,5 +10,7 @@ jobs:
     steps:
       - name: Print Hello World
         run: echo "Hello World"
+      - name: Making Folder
+        run: mkdir Testing
       - name: Print Listing 
         run: ls -al
