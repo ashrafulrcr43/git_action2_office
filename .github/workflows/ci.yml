@@ -10,6 +10,5 @@ jobs:
     steps:
       - name: Print Hello World
         run: echo "Hello World"
-  
-        name: Print Listing 
+      - name: Print Listing 
         run: ls -al
