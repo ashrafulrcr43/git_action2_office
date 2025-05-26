@@ -1,0 +1,15 @@
+name: Ci cd pipeline 
+on:
+  push:
+    branches:
+      - main
+
+job:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read the file
+        uses: actions/checkout@v2
+      - name: Hello World
+        run: echo "Hello World"
+
