@@ -29,17 +29,64 @@ jobs:
       - name: Print Test Report
         run: npm run check
 
-      - name: Send WhatsApp Report
-        run: |
-          curl -X POST "https://api.twilio.com/2010-04-01/Accounts/${{ secrets.TWILIO_ACCOUNT_SID }}/Messages.json" \
-            --data-urlencode "From=${{ secrets.TWILIO_FROM_NUMBER }}" \
-            --data-urlencode "To=${{ secrets.TWILIO_TO_NUMBER }}" \
-            --data-urlencode "Body=✅ CI/CD Test Passed Successfully!" \
-            -u "${{ secrets.TWILIO_ACCOUNT_SID }}:${{ secrets.TWILIO_AUTH_TOKEN }}"
+    build:
+        needs: Test
+        runs-on: ubuntu-latest
+        steps:
 
-  Deploy:
-    needs: Test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print Hello World
-        run: echo "Hello World"
+            - name: Checkout the repo
+              uses: actions/checkout@v3
+            
+            - name: Install Node Js
+              uses: actions/setup-node@v4
+              with:
+                node-version: "22"
+
+
+            - name: Create The Artifact file
+              run: |
+                mkdir build
+                cd build
+                echo "Hello World" > hello.txt
+            
+            - name: Upload The Artiface
+              uses: actions/upload-artifact@v4
+              with:
+                name: build_folder
+                path: ./build
+    deploy:
+          needs: build
+          runs-on: self-hosted
+          steps:
+              - name: Checkout The Code
+                uses: actions/checkout@v3
+
+              - name: Receive The Artiface
+                uses: actions/download-artifact@v4
+                with:
+                  name: build_folder
+                  path: ./test
+              
+              - name: Show The Artiface
+                run: |
+                  ls -a
+
+              - name: Install The Package
+                run: npm install
+              
+              - name: Run The Application By PM2
+                run: |
+                  ls -a
+                  pm2 status
+                  # delete node-app process
+                  pm2 delete node-app || true
+
+                  # pm2 restart all
+
+
+                  # Create a Background process name node-app
+                  pm2 start "npm start" --name="node-app"
+
+                  # Save The Process List.
+                  pm2 save
+
