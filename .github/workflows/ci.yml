@@ -8,7 +8,7 @@ on:
     branches:
       - main
 jobs:
-  job1:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Cloning Repository
@@ -25,3 +25,8 @@ jobs:
         run: npm install
       - name: Print Repository
         run: npm run check
+
+deploy:
+  steps:
+  - name: print Hello World
+    run: echo "Hello World"
