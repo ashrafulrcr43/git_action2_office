@@ -59,7 +59,7 @@ jobs:
         steps:
           - name: Checkout The Code
             uses: actions/checkout@v3
-            
+
           - name: Install Node Js
             uses: actions/setup-node@v4
             with:
@@ -77,7 +77,10 @@ jobs:
 
           - name: Install The Package
             run: npm install
-              
+
+          - name: Install pm2
+            run: npm install pm2 -g
+
           - name: Run The Application By PM2
             run: |
               ls -a
