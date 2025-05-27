@@ -27,6 +27,7 @@ jobs:
         run: npm run check
 
   Deploy:
+    needs: Test
     runs-on: ubuntu-latest
     steps:
       - name: print Hello World
