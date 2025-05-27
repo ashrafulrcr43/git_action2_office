@@ -83,7 +83,7 @@ jobs:
 
       - name: Run The Application By PM2
         run: |
-          pm2 delete node-app || true
+          #pm2 delete node-app || true
           pm2 start "npm start" --name="node-app"
           pm2 save
           pm2 status
