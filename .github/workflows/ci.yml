@@ -1,6 +1,6 @@
 name: CI CD Application Deployment
 
-on: 
+on:
   push:
     branches:
       - main
@@ -18,7 +18,7 @@ jobs:
       - name: Node Setup
         uses: actions/setup-node@v4
         with:
-            node-version: '22'
+          node-version: "22"
 
       - name: Check Node Version
         run: node --version
@@ -33,25 +33,24 @@ jobs:
     needs: Test
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v3
 
-    - name: Checkout the repo
-      uses: actions/checkout@v3
-            
-    - name: Install Node Js
-      uses: actions/setup-node@v4
-      with:
+      - name: Install Node Js
+        uses: actions/setup-node@v4
+        with:
           node-version: "22"
-    - name: Create The Artifact file
-      run: |
-        mkdir build
-        cd build
-        echo "Hello World" > hello.txt
-            
-    - name: Upload The Artiface
-      uses: actions/upload-artifact@v4
-      with:
-        name: build_folder
-        path: ./build
+      - name: Create The Artifact file
+        run: |
+          mkdir build
+          cd build
+          echo "Hello World" > hello.txt
+
+      - name: Upload The Artiface
+        uses: actions/upload-artifact@v4
+        with:
+          name: build_folder
+          path: ./build
 
   deploy:
   needs: build
