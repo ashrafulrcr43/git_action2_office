@@ -60,11 +60,11 @@ jobs:
           - name: Checkout The Code
             uses: actions/checkout@v3
 
-          - name: Receive The Artiface
+          - name: Receive the artifact
             uses: actions/download-artifact@v4
             with:
-            name: build_folder
-            path: ./test
+              name: build_folder
+              path: ./test
               
           - name: Show The Artiface
             run: |
