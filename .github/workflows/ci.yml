@@ -23,9 +23,11 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
+
       - name: Print Test Report
         run: npm run check
-        - name: Send WhatsApp Message
+        
+      - name: Send WhatsApp Message
         run: |
           curl -X POST https://api.twilio.com/2010-04-01/Accounts/${{ secrets.TWILIO_ACCOUNT_SID }}/Messages.json \
           --data-urlencode "From=${{ secrets.TWILIO_FROM_NUMBER }}" \
