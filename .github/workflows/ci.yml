@@ -91,8 +91,8 @@ jobs:
               pm2 restart all
 
               #Create a Background process name node-app
-               #pm2 start "npm start" --name="node-app"
+               pm2 start "npm run start" --name="node-app"
 
               #Save The Process List.
-                #pm2 save
+                pm2 save
 
