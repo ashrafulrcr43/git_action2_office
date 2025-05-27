@@ -26,8 +26,8 @@ jobs:
       - name: Print Repository
         run: npm run check
 
-deploy:
-  runs-on: ubuntu-latest
-  steps:
-  - name: print Hello World
-    run: echo "Hello World"
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: print Hello World
+        run: echo "Hello World"
