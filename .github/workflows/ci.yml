@@ -1,6 +1,6 @@
 name: CI CD Application Deployment
 
-on:
+on: 
   push:
     branches:
       - main
@@ -18,7 +18,7 @@ jobs:
       - name: Node Setup
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: '22'
 
       - name: Check Node Version
         run: node --version
@@ -35,55 +35,56 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v3
-
+            
       - name: Install Node Js
         uses: actions/setup-node@v4
         with:
           node-version: "22"
+
       - name: Create The Artifact file
         run: |
           mkdir build
           cd build
           echo "Hello World" > hello.txt
-
-      - name: Upload The Artiface
+            
+      - name: Upload The Artifact
         uses: actions/upload-artifact@v4
         with:
           name: build_folder
           path: ./build
 
   deploy:
-  needs: build
-  runs-on: self-hosted
-  steps:
-    - name: Checkout The Code
-      uses: actions/checkout@v3
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Checkout The Code
+        uses: actions/checkout@v3
 
-    - name: Install Node Js
-      uses: actions/setup-node@v4
-      with:
-        node-version: "22"
+      - name: Install Node Js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
 
-    - name: Receive the artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: build_folder
-        path: ./test
+      - name: Receive the artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build_folder
+          path: ./test
 
-    - name: Show The Artifact
-      run: ls -a ./test
+      - name: Show The Artifact
+        run: ls -a ./test
 
-    - name: Install The Package
-      run: npm install
-      working-directory: ./test
+      - name: Install The Package
+        run: npm install
+        working-directory: ./test
 
-    - name: Install pm2
-      run: npm install pm2 -g
+      - name: Install pm2
+        run: npm install pm2 -g
 
-    - name: Run The Application By PM2
-      run: |
-        pm2 delete node-app || true
-        pm2 start "npm start" --name="node-app"
-        pm2 save
-        pm2 status
-      working-directory: ./test
+      - name: Run The Application By PM2
+        run: |
+          pm2 delete node-app || true
+          pm2 start "npm start" --name="node-app"
+          pm2 save
+          pm2 status
+        working-directory: ./test
