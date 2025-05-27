@@ -22,6 +22,6 @@ jobs:
         run: node --version
 
       - name: Install Dependencies
-        run: npm Install
+        run: npm install
       - name: Print Repository
         run: npm run check
